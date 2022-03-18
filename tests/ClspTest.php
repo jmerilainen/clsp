@@ -65,3 +65,54 @@ it('can generate classes from helper function', function () {
 
     expect($html)->toBe($expected);
 });
+
+
+it('can generate from multiple compound variants', function () {
+    $test = Clsp::make('font-sans')
+        ->variants([
+            'size' => [
+                'md' => 'py-2 px-4',
+                'sm' => 'py-1 px-3 text-xs',
+            ],
+            'variant' => [
+                'tag' => 'my-tag-calss',
+            ],
+        ])
+        ->compoundVariants([
+            [
+                ['variant' => 'tag', 'mode' => 'fill', ],
+                'bg-blue-100'
+            ],
+            [
+                ['variant' => 'tag', 'mode' => 'outline', ],
+                'bg-blue-200'
+            ],
+            [
+                ['variant' => 'tag', 'shape' => 'rounded', ],
+                'rounded-full'
+            ],
+            [
+                ['variant' => 'primary', 'shape' => 'rounded', ],
+                'rounded-sm'
+            ],
+            [
+                ['shape' => 'rounded', 'size' => 'md', 'variant' => 'tag' ],
+                'shadow'
+            ],
+            [
+                ['shape' => 'rounded', 'size' => 'lg',],
+                'rounded-lg'
+            ],
+        ]);
+
+    $test->props([
+        'size' => 'md',
+        'variant' => 'tag',
+        'mode' => 'fill',
+        'shape' => 'rounded',
+    ]);
+
+    $expected = 'font-sans py-2 px-4 my-tag-calss bg-blue-100 rounded-full shadow';
+
+    expect($test->__toString())->toBe($expected);
+});
