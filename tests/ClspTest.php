@@ -38,3 +38,30 @@ it('can generate classes from array', function () {
 
     expect($test->__toString())->toBe($expected);
 });
+
+it('can generate classes from helper function', function () {
+    $test = clsp()
+        ->variants([
+            'shape' => [
+                'rounded' => 'rounded',
+                'pill' => 'rounded-4xl',
+            ],
+            'size' => [
+                'md' => 'py-2 px-4',
+                'sm' => 'py-1 px-3 text-xs',
+            ],
+            'stretched' => [
+                'default' => 'stretched',
+            ],
+        ])
+        ->props([
+            'shape' => 'rounded',
+            'stretched' => true,
+            'size' => 'lg',
+        ]);
+
+    $html = '<button class="'. $test .'">Test</button>';
+    $expected = '<button class="rounded stretched">Test</button>';
+
+    expect($html)->toBe($expected);
+});

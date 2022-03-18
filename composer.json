@@ -24,6 +24,9 @@
         "spatie/ray": "^1.28"
     },
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "Jmerilainen\\Clsp\\": "src"
         }
