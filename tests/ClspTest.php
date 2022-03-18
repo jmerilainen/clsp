@@ -81,27 +81,27 @@ it('can generate from multiple compound variants', function () {
         ->compoundVariants([
             [
                 ['variant' => 'tag', 'mode' => 'fill', ],
-                'bg-blue-100'
+                'bg-blue-100',
             ],
             [
                 ['variant' => 'tag', 'mode' => 'outline', ],
-                'bg-blue-200'
+                'bg-blue-200',
             ],
             [
                 ['variant' => 'tag', 'shape' => 'rounded', ],
-                'rounded-full'
+                'rounded-full',
             ],
             [
                 ['variant' => 'primary', 'shape' => 'rounded', ],
-                'rounded-sm'
+                'rounded-sm',
             ],
             [
                 ['shape' => 'rounded', 'size' => 'md', 'variant' => 'tag' ],
-                'shadow'
+                'shadow',
             ],
             [
                 ['shape' => 'rounded', 'size' => 'lg',],
-                'rounded-lg'
+                'rounded-lg',
             ],
         ]);
 
