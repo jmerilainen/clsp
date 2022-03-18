@@ -10,7 +10,6 @@ class Clsp
         protected array $compoundVariants = [],
         protected array $props = [],
     ) {
-
     }
 
     public static function make(string $defaults = ''): static
@@ -74,7 +73,7 @@ class Clsp
                     ->filter(function ($value, $key) use ($props) {
                         return $value !== $props[$key];
                     })->isEmpty();
-            })->map(function($item) {
+            })->map(function ($item) {
                 return $item[1];
             })
             ->filter()

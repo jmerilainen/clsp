@@ -20,11 +20,11 @@ it('can generate classes from array', function () {
         ->compoundVariants([
             [
                 ['variant' => 'tag', 'mode' => 'fill', ],
-                'bg-blue-100 text-white hover:bg-blue-75 focus:bg-blue-75'
+                'bg-blue-100 text-white hover:bg-blue-75 focus:bg-blue-75',
             ],
             [
                 ['variant' => 'tag', 'mode' => 'outline', ],
-                'border-2 border-blue-100 hover:bg-blue-100 hover:text-white'
+                'border-2 border-blue-100 hover:bg-blue-100 hover:text-white',
             ],
         ]);
 
