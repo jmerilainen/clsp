@@ -18,28 +18,28 @@ class Clsp
         return new static($defaults);
     }
 
-    public function defaults(string $data): self
+    public function defaults(string $data = ''): self
     {
         $this->defaults = $data;
 
         return $this;
     }
 
-    public function variants(array $data): self
+    public function variants(array $data = []): self
     {
         $this->variants = $data;
 
         return $this;
     }
 
-    public function compoundVariants(array $data): self
+    public function compoundVariants(array $data = []): self
     {
         $this->compoundVariants = $data;
 
         return $this;
     }
 
-    public function props(array $data): self
+    public function props(array $data = []): self
     {
         $this->props = $data;
 
@@ -48,9 +48,21 @@ class Clsp
 
     public function generate(): string
     {
-        $props = collect($this->props);
+        $props = $this->props;
         $variants = $this->variants;
         $compoundVariants = $this->compoundVariants;
+
+        $variantsClasses = collect($props)
+            ->map(function ($value, $key) use ($variants) {
+                if ($value === true) {
+                    $value = 'default';
+                }
+
+                return $variants[$key][$value] ?? null;
+            })
+            ->filter()
+            ->values()
+            ->toArray();
 
         $compoundVariantsClasses = collect($compoundVariants)
             ->filter(function ($item) use ($props) {
@@ -69,18 +81,6 @@ class Clsp
             ->values()
             ->toArray();
 
-        $variantsClasses = $props
-            ->map(function ($value, $key) use ($variants) {
-                if ($value === true) {
-                    $value = 'default';
-                }
-
-                return $variants[$key][$value] ?? null;
-            })
-            ->filter()
-            ->values()
-            ->toArray();
-
         $all = collect([$this->defaults])
             ->push($variantsClasses)
             ->push($compoundVariantsClasses)
@@ -91,8 +91,13 @@ class Clsp
         return empty($all) ? '' : trim($all);
     }
 
-    public function __toString()
+    public function get()
     {
         return $this->generate();
+    }
+
+    public function __toString()
+    {
+        return $this->get();
     }
 }
